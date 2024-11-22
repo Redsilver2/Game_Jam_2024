@@ -27,12 +27,10 @@ public class PlayerCameraController : MonoBehaviour
             rotationX = Mathf.Clamp(rotationX, -maxRotationX, maxRotationX); 
         }
 
-
         if (axisX != 0 && body != null)
         {
             rotationY = body.eulerAngles.y + (axisX * rotationSpeed * Time.deltaTime);
         }
-
     }
 
     private void LateUpdate()
