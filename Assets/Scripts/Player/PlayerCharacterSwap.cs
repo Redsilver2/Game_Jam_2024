@@ -110,6 +110,17 @@ public class PlayerCharacterSwap : MonoBehaviour
         }
     }
 
+    public PlayerController[] GetPlayerControllers()
+    {
+        List<PlayerController> result = new List<PlayerController>();
+
+        for (int i = 0; i < characterDatas.Count; i++)
+        {
+            result.Add(characterDatas[i].Controller);
+        }
+
+        return result.ToArray();
+    }
     public PlayerController GetActifController() => characterDatas[currentIndex].Controller;
 
     private void OnLoadSingleLevelEvent()
