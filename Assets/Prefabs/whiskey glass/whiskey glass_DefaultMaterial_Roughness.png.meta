@@ -1,10 +1,7 @@
     resizeAlgorithm: 0
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: c455ddb90e772014fb798a9224630b74
-=======
 guid: f905ffc086fa8fe4a992f82b4716e40d
->>>>>>> origin/main
+guid: f905ffc086fa8fe4a992f82b4716e40d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}

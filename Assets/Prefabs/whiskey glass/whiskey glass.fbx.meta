@@ -1,10 +1,7 @@
   humanDescription:
 fileFormatVersion: 2
-<<<<<<< HEAD
-guid: 4c473294416265947b37a4b13129850f
-=======
 guid: b547d7f5d261d754bb79e3d5a2b703b2
->>>>>>> origin/main
+guid: b547d7f5d261d754bb79e3d5a2b703b2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

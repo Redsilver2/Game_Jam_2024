@@ -40,12 +40,12 @@ public class SettingsManager
             sensitivityYSlider.value = PlayerPrefs.GetFloat(SENSITIVITY_Y_KEY, sensitivityYSlider.minValue);
         }
 
-        if (sensitivityXSlider != null)
+        if (masterAudioSlider != null)
         {
             masterAudioSlider.minValue = 0;
             masterAudioSlider.maxValue = 1;
 
-            masterAudioSlider.onValueChanged.AddListener(OnSensitvityXSliderValueChangedEvent);
+            masterAudioSlider.onValueChanged.AddListener(OnMasterAudioSliderEvent);
             masterAudioSlider.value = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, masterAudioSlider.maxValue);
         }
     }
@@ -76,7 +76,7 @@ public class SettingsManager
     {
         if (masterAudioValueDisplayer != null)
         {
-            masterAudioValueDisplayer.text = $"{value * 100}%";
+            masterAudioValueDisplayer.text = $"{(int)(value * 100)}%";
         }
 
         AudioListener.volume = value;
