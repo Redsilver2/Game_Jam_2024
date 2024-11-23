@@ -54,13 +54,19 @@ public class SceneLoaderManager : MonoBehaviour
 
         StartCoroutine(LoadSingleSceneCoroutine(index));
     }
+
+    public void QuitApplication()
+    {
+        if (IsLoadingSingleScene) return;
+        StartCoroutine(QuitApplicationCoroutine());
+    }
+
     private IEnumerator LoadSingleSceneCoroutine(int index)
     {
         IsLoadingSingleScene = true;
         OnLoadSingleLevel.Invoke();
 
-        StartCoroutine(UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, true, fadeBackgroundDuration));
-        yield return new WaitForSeconds(fadeBackgroundDuration);
+        yield return UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, true, fadeBackgroundDuration);
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(index, LoadSceneMode.Single);
         operation.allowSceneActivation = false;
@@ -68,10 +74,16 @@ public class SceneLoaderManager : MonoBehaviour
         while (operation.progress < 0.9f) { yield return null; }
 
         operation.allowSceneActivation = true;
-        StartCoroutine(UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, false, fadeBackgroundDuration));
-        yield return new WaitForSeconds(fadeBackgroundDuration);
+        yield return UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, false, fadeBackgroundDuration);
 
         IsLoadingSingleScene = false;
+    }
+
+    private IEnumerator QuitApplicationCoroutine()
+    {
+        IsLoadingSingleScene = true;
+        yield return UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, true, fadeBackgroundDuration);
+        Application.Quit();
     }
 
     public static void AddOnLoadSingleLevelEvent(UnityAction action) { OnLoadSingleLevel.AddListener(action); }
