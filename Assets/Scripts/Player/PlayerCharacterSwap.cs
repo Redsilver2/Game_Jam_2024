@@ -17,6 +17,19 @@ public class PlayerCharacterSwap : MonoBehaviour
     private int currentIndex = -1;
 
     private static UnityEvent<int> onCharacterIndexChanged = new UnityEvent<int>();
+    public static PlayerCharacterSwap Instance { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     private void Start()
     {
@@ -39,7 +52,7 @@ public class PlayerCharacterSwap : MonoBehaviour
             swapBackground.canvasRenderer.SetAlpha(0);
         }
 
-        //SceneLoaderManager.AddOnLoadSingleLevelEvent();
+        SceneLoaderManager.AddOnLoadSingleLevelEvent(OnLoadSingleLevelEvent);
     }
 
 
@@ -97,6 +110,8 @@ public class PlayerCharacterSwap : MonoBehaviour
         }
     }
 
+    public PlayerController GetActifController() => characterDatas[currentIndex].Controller;
+
     private void OnLoadSingleLevelEvent()
     {
         PlayerCharacterData currentData = characterDatas[currentIndex];
@@ -113,5 +128,8 @@ public class PlayerCharacterSwap : MonoBehaviour
         }
     }
 
-
+    private void OnDisable()
+    {
+        SceneLoaderManager.RemoveOnLoadSingleLevelEvent(OnLoadSingleLevelEvent);
+    }
 }

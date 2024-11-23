@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Base Settings")]
     [SerializeField] private PlayerCameraController ownerCameraController;
+    [SerializeField] private CharacterType characterType;
 
     [Space]
     [Header("Movement Settings")]
@@ -59,7 +60,7 @@ public class PlayerController : MonoBehaviour
     private static UnityEvent<PlayerController, Vector2> onMovementMotionChanged = new UnityEvent<PlayerController, Vector2>();
 
     public bool IsRunning => isRunning;
-    //public bool IsGrounded => is
+    public CharacterType CharacterType => characterType;
 
     private void OnValidate()
     {
