@@ -46,6 +46,8 @@ public class FootstepAudioHandler
 
     private void PlaySound(AudioClip clip)
     {
+        if (clip == null) return;
+
         source.pitch = currentMovementPitch;
         source.clip = clip;
         source.Play();

@@ -37,9 +37,13 @@ public class PlayerController : MonoBehaviour
 
 
     [Space]
-    [SerializeField] private float maxAirTime = 5f;
+    [SerializeField] private float maxAirTime = 0.1f;
 
+    [Space]
+    [SerializeField] private float jumpTime  = 0.5f;
+    [SerializeField] private float jumpForce = 5f;
 
+    private bool canJump = true;
 
     private bool isRunning = false;
     private bool isGrounded = false;
@@ -60,6 +64,7 @@ public class PlayerController : MonoBehaviour
     private static UnityEvent<PlayerController, Vector2> onMovementMotionChanged = new UnityEvent<PlayerController, Vector2>();
 
     public bool IsRunning => isRunning;
+    public PlayerCameraController CameraController => ownerCameraController;
     public CharacterType CharacterType => characterType;
 
     private void OnValidate()
@@ -109,14 +114,20 @@ public class PlayerController : MonoBehaviour
             {
                 if (!canPlayLandingSound)
                 {
-                    footstepAudioHandler.PlayMovementSound(groundTag, isRunning);
+                   // footstepAudioHandler.PlayMovementSound(groundTag, isRunning);
                 }
                 else
                 {
-                    footstepAudioHandler.PlayLandingSound(groundTag);
+                   // footstepAudioHandler.PlayLandingSound(groundTag);
                     canPlayLandingSound = false;
                     airTime = 0f;
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space) && canJump)
+            {
+                Debug.Log("Jumping");
+                StartCoroutine(JumpCoroutine());
             }
         }
         else
@@ -134,12 +145,16 @@ public class PlayerController : MonoBehaviour
         }
 
         currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, desiredMovementSpeed, movementTransitionSpeed * Time.deltaTime);
-        currentGravitySpeed = Mathf.Lerp(currentGravitySpeed, desiredGravitySpeed, gravityMovementSpeed * Time.deltaTime);
+
+
+        if (canJump)
+        {
+            currentGravitySpeed = Mathf.Lerp(currentGravitySpeed, desiredGravitySpeed, gravityMovementSpeed * Time.deltaTime);
+        }
 
         character.Move((transform.forward * inputMotion.y * currentMovementSpeed
                       + transform.right * inputMotion.x * currentMovementSpeed
                       + -transform.up * currentGravitySpeed) * Time.deltaTime);
-
 
 
         onMovementMotionChanged.Invoke(this, inputMotion);
@@ -154,6 +169,22 @@ public class PlayerController : MonoBehaviour
 
         groundTag = string.Empty;
         return false;
+    }
+
+    private IEnumerator JumpCoroutine()
+    {
+        float t = 0f;
+        canJump = false;
+        currentGravitySpeed = 0f;
+
+        while (t < jumpTime)
+        {
+            character.Move(transform.up * jumpForce);
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        canJump = true;
     }
 
 
