@@ -150,17 +150,74 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 0.395
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4486982638923412527, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
     m_RemovedGameObjects:
     - {fileID: 3389684214175508668, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8382937569164624474, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
       insertIndex: 0
       addedObject: {fileID: 6548039196086449866}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1969969173229871355, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2665090347995567045}
   m_SourcePrefab: {fileID: 100100000, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
 --- !u!4 &835224192623479768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8382937569164624474, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
   m_PrefabInstance: {fileID: 9205747654350801282}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7248506428277729657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1969969173229871355, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+  m_PrefabInstance: {fileID: 9205747654350801282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2665090347995567045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7248506428277729657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a56e26e8b87025547b24cb6b7236653b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerCameraController: {fileID: 7397066445806713337}
+  walkMovementSpeed: 0
+  runMovementSpeed: 0
+  gravityMovementSpeed: 0
+  movementTransitionSpeed: 0
+  defaultGravity: 0
+  fallingGravity: 0
+  gravityTransitionSpeed: 0
+  groundCheckRayLenght: 1.1
+  footstepAudioHandler:
+    source: {fileID: 0}
+    footsteps:
+    - groundTag: Dirt
+      movementClips: []
+      landedClips: []
+    - groundTag: Grass
+      movementClips: []
+      landedClips: []
+    movementWalkingPitch: 0
+    movementRunningPitch: 0
+    movementPitchTransitionSpeed: 0
+  maxAirTime: 0.1
+  jumpTime: 0.5
+  jumpForce: 5
+  pushForce: 100
+--- !u!114 &7397066445806713337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1830372443260334203, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+  m_PrefabInstance: {fileID: 9205747654350801282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a3b2c4abe78844696ce649335b523f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
