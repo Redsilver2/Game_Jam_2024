@@ -18,12 +18,12 @@ public class PlayerCameraController : MonoBehaviour
 
     private void Update()
     {
-        float axisX = Input.GetAxisRaw("Horizontal");
-        float axisY = Input.GetAxisRaw("Vertical");
+        float axisX = Input.GetAxis("Mouse X");
+        float axisY = Input.GetAxis("Mouse Y");
 
         if (axisY != 0)
         {
-            rotationX += axisY * rotationSpeed * Time.deltaTime;
+            rotationX += -axisY * rotationSpeed * Time.deltaTime;
             rotationX = Mathf.Clamp(rotationX, -maxRotationX, maxRotationX); 
         }
 
