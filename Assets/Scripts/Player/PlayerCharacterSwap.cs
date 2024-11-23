@@ -58,7 +58,7 @@ public class PlayerCharacterSwap : MonoBehaviour
 
     private void Update()
     {
-        if (!isSwaping)
+        if (!isSwaping && GetActifController().IsGrounded)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {

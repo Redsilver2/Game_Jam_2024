@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     private static UnityEvent<PlayerController, Vector2> onMovementMotionChanged = new UnityEvent<PlayerController, Vector2>();
 
     public bool IsRunning => isRunning;
+    public bool IsGrounded => isGrounded;
     public PlayerCameraController CameraController => ownerCameraController;
     public CharacterType CharacterType => characterType;
 
@@ -93,7 +94,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = IsGrounded(out groundTag);
+        isGrounded = GetGroundedState(out groundTag);
         inputMotion = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         isRunning = isGrounded && Input.GetKey(KeyCode.LeftShift);
     }
@@ -145,21 +146,16 @@ public class PlayerController : MonoBehaviour
         }
 
         currentMovementSpeed = Mathf.Lerp(currentMovementSpeed, desiredMovementSpeed, movementTransitionSpeed * Time.deltaTime);
-
-
-        if (canJump)
-        {
-            currentGravitySpeed = Mathf.Lerp(currentGravitySpeed, desiredGravitySpeed, gravityMovementSpeed * Time.deltaTime);
-        }
+        currentGravitySpeed  = Mathf.Lerp(currentGravitySpeed, desiredGravitySpeed, gravityMovementSpeed * Time.deltaTime);
 
         character.Move((transform.forward * inputMotion.y * currentMovementSpeed
                       + transform.right * inputMotion.x * currentMovementSpeed
-                      + -transform.up * currentGravitySpeed) * Time.deltaTime);
+                      +  -transform.up * (canJump ? currentGravitySpeed : 0f)) * Time.deltaTime);
 
 
         onMovementMotionChanged.Invoke(this, inputMotion);
     }
-    private bool IsGrounded(out string groundTag)
+    private bool GetGroundedState(out string groundTag)
     {
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitInfo, groundCheckRayLenght, LayerMask.GetMask("Ground")) && hitInfo.collider != null)
         {
@@ -175,11 +171,10 @@ public class PlayerController : MonoBehaviour
     {
         float t = 0f;
         canJump = false;
-        currentGravitySpeed = 0f;
 
         while (t < jumpTime)
         {
-            character.Move(transform.up * jumpForce);
+            character.Move(transform.up * jumpForce * Time.deltaTime);
             t += Time.deltaTime;
             yield return null;
         }
