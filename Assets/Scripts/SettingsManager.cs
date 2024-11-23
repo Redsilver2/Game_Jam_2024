@@ -22,8 +22,8 @@ public class SettingsManager
     {
         if(sensitivityXSlider != null)
         {
-            sensitivityXSlider.minValue = 100;
-            sensitivityXSlider.maxValue = 1000;
+            sensitivityXSlider.minValue = 1;
+            sensitivityXSlider.maxValue = 10;
             sensitivityXSlider.wholeNumbers = true;
 
             sensitivityXSlider.onValueChanged.AddListener(OnSensitvityXSliderValueChangedEvent);
@@ -32,21 +32,21 @@ public class SettingsManager
 
         if(sensitivityYSlider != null)
         {
-            sensitivityYSlider.minValue = 100;
-            sensitivityYSlider.maxValue = 1000;
+            sensitivityYSlider.minValue = 1;
+            sensitivityYSlider.maxValue = 10;
             sensitivityYSlider.wholeNumbers = true;
 
             sensitivityYSlider.onValueChanged.AddListener(OnSensitvityYSliderValueChangedEvent);
             sensitivityYSlider.value = PlayerPrefs.GetFloat(SENSITIVITY_Y_KEY, sensitivityYSlider.minValue);
         }
 
-        if (sensitivityXSlider != null)
+        if (masterAudioSlider != null)
         {
             masterAudioSlider.minValue = 0;
             masterAudioSlider.maxValue = 1;
 
-            masterAudioSlider.onValueChanged.AddListener(OnSensitvityXSliderValueChangedEvent);
-            masterAudioSlider.value = PlayerPrefs.GetFloat(SENSITIVITY_X_KEY, sensitivityXSlider.minValue);
+            masterAudioSlider.onValueChanged.AddListener(OnMasterAudioSliderEvent);
+            masterAudioSlider.value = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, masterAudioSlider.maxValue);
         }
     }
 
@@ -54,7 +54,7 @@ public class SettingsManager
     {
         if (sensitivityXValueDisplayer != null)
         {
-            sensitivityXValueDisplayer.text = ((int)value).ToString();
+            sensitivityXValueDisplayer.text = ((int)value * 10).ToString();
         }
 
         PlayerCameraController.SetSensitvityX(value);
@@ -65,7 +65,7 @@ public class SettingsManager
     {
         if (sensitivityYValueDisplayer != null)
         {
-            sensitivityYValueDisplayer.text = ((int)value).ToString();
+            sensitivityYValueDisplayer.text = ((int)value * 10).ToString();
         }
 
         PlayerCameraController.SetSensitvityY(value);
@@ -76,7 +76,7 @@ public class SettingsManager
     {
         if (masterAudioValueDisplayer != null)
         {
-            masterAudioValueDisplayer.text = $"{value * 100}%";
+            masterAudioValueDisplayer.text = $"{(int)(value * 100)}%";
         }
 
         AudioListener.volume = value;

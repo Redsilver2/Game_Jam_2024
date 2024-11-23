@@ -73,6 +73,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: efdba22485f64634589fcd3be53f4dee, type: 3}
+--- !u!23 &5374028179802344869 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: efdba22485f64634589fcd3be53f4dee, type: 3}
+  m_PrefabInstance: {fileID: 6725553789764129057}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6548039196086449866 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: efdba22485f64634589fcd3be53f4dee, type: 3}
@@ -195,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerCameraController: {fileID: 7397066445806713337}
+  meshRenderer: {fileID: 5374028179802344869}
   walkMovementSpeed: 0
   runMovementSpeed: 0
   gravityMovementSpeed: 0
