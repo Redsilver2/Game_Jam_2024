@@ -5,14 +5,18 @@ public class MainMenu : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button quitButton;
+
+    [Space]
+    [SerializeField] private SettingsManager settingsManager;
     private SceneLoaderManager sceneLoader;
 
 
     private void Start()
     {
         sceneLoader = SceneLoaderManager.Instance;
+        settingsManager.Init();
 
-        if(startButton != null)
+        if (startButton != null)
         {
             startButton.onClick.AddListener(OnClickStartButtonEvent);
         }

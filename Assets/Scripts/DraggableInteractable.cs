@@ -26,7 +26,6 @@ public class DraggableInteractable : Interactable, IPushable
             }
         }
 
-
         rigidbody = GetComponent<Rigidbody>();
 
 

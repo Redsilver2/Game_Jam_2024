@@ -41,6 +41,7 @@ public class PlayerCharacterSwap : MonoBehaviour
             {
                 currentIndex = i;
                 controller.enabled = true;
+                controller.MeshRenderer.enabled = true;
                 break;
             }
         }
@@ -48,6 +49,7 @@ public class PlayerCharacterSwap : MonoBehaviour
         if (swapBackground != null)
         {
             swapBackground.canvasRenderer.SetAlpha(0);
+            swapBackground.enabled = false;
         }
 
         SceneLoaderManager.AddOnLoadSingleLevelEvent(OnLoadSingleLevelEvent);
@@ -91,6 +93,7 @@ public class PlayerCharacterSwap : MonoBehaviour
         if (currentIndex != index && characterDatas.Count > 0 && swapBackground != null)
         {
             PlayerCharacterData currentData = characterDatas[currentIndex];
+            swapBackground.enabled = true;
 
             isSwaping = true;
             currentIndex = index;
@@ -105,6 +108,7 @@ public class PlayerCharacterSwap : MonoBehaviour
             yield return UIManager.LerpCanvasRendererAlpha(swapBackground.canvasRenderer, false, swapBackgroundFadeDuration);
             currentData.Controller.enabled = true;
             isSwaping = false;
+            swapBackground.enabled = false;
         }
     }
 
@@ -134,6 +138,7 @@ public class PlayerCharacterSwap : MonoBehaviour
         if(camera != null && controller != null)
         {
             controller.enabled = false;
+            controller.MeshRenderer.enabled = false;
             characterDatas.Add(new PlayerCharacterData(camera, controller));
         }
     }

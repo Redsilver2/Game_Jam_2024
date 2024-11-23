@@ -49,11 +49,11 @@ public class PlayerCameraController : MonoBehaviour
         }
     }
 
-    public static void OnSensitvityXSliderValueChanged(float value)
+    public static void SetSensitvityX(float value)
     {
         sensitivityX = value;
     }
-    public static void OnSensitvityYSliderValueChanged(float value)
+    public static void SetSensitvityY(float value)
     {
         sensitivityY = value;
     }
