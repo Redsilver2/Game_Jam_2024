@@ -14,8 +14,8 @@ public abstract class PlayerController : MonoBehaviour
 
     [Space]
     [Header("Movement Settings")]
-    [SerializeField] private int walkMovementSpeed;
-    [SerializeField] private int runMovementSpeed;
+    [SerializeField] private int   walkMovementSpeed;
+    [SerializeField] private int   runMovementSpeed;
     [SerializeField] private float gravityMovementSpeed;
 
     [Space]
@@ -52,6 +52,7 @@ public abstract class PlayerController : MonoBehaviour
     private float currentGravitySpeed = 0;
 
 
+    private MeshRenderer meshRenderer;
     private Vector2 inputMotion;
     protected CharacterController character;
 
@@ -70,6 +71,7 @@ public abstract class PlayerController : MonoBehaviour
 
     protected virtual void Awake()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
         character = GetComponent<CharacterController>();
         onStateChanged = new UnityEvent<bool>();
 
@@ -84,6 +86,7 @@ public abstract class PlayerController : MonoBehaviour
             {
                 AddOnStateChangedEvent(isEnabled =>
                 {
+                    meshRenderer.enabled = !isEnabled;
                     ownerCameraController.enabled = isEnabled;
                 });
             }
