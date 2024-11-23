@@ -38,12 +38,7 @@ public abstract class PlayerController : MonoBehaviour
 
     [Space]
     [SerializeField] private float maxAirTime = 0.1f;
-
-    [Space]
-    [SerializeField] private float jumpTime  = 0.5f;
-    [SerializeField] private float jumpForce = 5f;
-
-    private bool canJump = true;
+    protected bool canFall = true;
 
     private bool isRunning = false;
     private bool isGrounded = false;
@@ -102,7 +97,7 @@ public abstract class PlayerController : MonoBehaviour
         isRunning = isGrounded && Input.GetKey(KeyCode.LeftShift);
     }
 
-    private void LateUpdate()
+    protected virtual void LateUpdate()
     {
         float desiredMovementSpeed = walkMovementSpeed;
         float desiredGravitySpeed = defaultGravity;
@@ -127,12 +122,6 @@ public abstract class PlayerController : MonoBehaviour
                     airTime = 0f;
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Space) && canJump)
-            {
-                Debug.Log("Jumping");
-                StartCoroutine(JumpCoroutine());
-            }
         }
         else
         {
@@ -153,7 +142,7 @@ public abstract class PlayerController : MonoBehaviour
 
         character.Move((transform.forward * inputMotion.y * currentMovementSpeed
                       + transform.right * inputMotion.x * currentMovementSpeed
-                      +  -transform.up * (canJump ? currentGravitySpeed : 0f)) * Time.deltaTime);
+                      +  -transform.up * (canFall ? currentGravitySpeed : 0f)) * Time.deltaTime);
 
 
         onMovementMotionChanged.Invoke(this, inputMotion);
@@ -169,22 +158,6 @@ public abstract class PlayerController : MonoBehaviour
         groundTag = string.Empty;
         return false;
     }
-
-    private IEnumerator JumpCoroutine()
-    {
-        float t = 0f;
-        canJump = false;
-
-        while (t < jumpTime)
-        {
-            character.Move(transform.up * jumpForce * Time.deltaTime);
-            t += Time.deltaTime;
-            yield return null;
-        }
-
-        canJump = true;
-    }
-
 
     public void AddOnStateChangedEvent(UnityAction<bool> action)
     {
