@@ -58,6 +58,9 @@ public class PlayerController : MonoBehaviour
     private UnityEvent<bool> onStateChanged;
     private static UnityEvent<PlayerController, Vector2> onMovementMotionChanged = new UnityEvent<PlayerController, Vector2>();
 
+    public bool IsRunning => isRunning;
+    //public bool IsGrounded => is
+
     private void OnValidate()
     {
         footstepAudioHandler.Validate();
