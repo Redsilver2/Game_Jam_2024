@@ -26,8 +26,13 @@ public class SettingsManager
             sensitivityXSlider.maxValue = 10;
             sensitivityXSlider.wholeNumbers = true;
 
-            sensitivityXSlider.onValueChanged.AddListener(OnSensitvityXSliderValueChangedEvent);
             sensitivityXSlider.value = PlayerPrefs.GetFloat(SENSITIVITY_X_KEY, sensitivityXSlider.minValue);
+            sensitivityXSlider.onValueChanged.AddListener(OnSensitvityXSliderValueChangedEvent);
+
+            if (sensitivityXValueDisplayer != null)
+            {
+                sensitivityXValueDisplayer.text = ((int)sensitivityXSlider.value * 10).ToString();
+            }
         }
 
         if(sensitivityYSlider != null)
@@ -36,8 +41,13 @@ public class SettingsManager
             sensitivityYSlider.maxValue = 10;
             sensitivityYSlider.wholeNumbers = true;
 
-            sensitivityYSlider.onValueChanged.AddListener(OnSensitvityYSliderValueChangedEvent);
             sensitivityYSlider.value = PlayerPrefs.GetFloat(SENSITIVITY_Y_KEY, sensitivityYSlider.minValue);
+            sensitivityYSlider.onValueChanged.AddListener(OnSensitvityYSliderValueChangedEvent);
+
+            if (sensitivityYValueDisplayer != null)
+            {
+                sensitivityYValueDisplayer.text = ((int)sensitivityYSlider.value * 10).ToString();
+            }
         }
 
         if (masterAudioSlider != null)
@@ -45,8 +55,14 @@ public class SettingsManager
             masterAudioSlider.minValue = 0;
             masterAudioSlider.maxValue = 1;
 
-            masterAudioSlider.onValueChanged.AddListener(OnMasterAudioSliderEvent);
             masterAudioSlider.value = PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, masterAudioSlider.maxValue);
+            masterAudioSlider.onValueChanged.AddListener(OnMasterAudioSliderEvent);
+
+            if (masterAudioValueDisplayer != null)
+            {
+                masterAudioValueDisplayer.text = $"{(int)(masterAudioSlider.value * 100)}%";
+            }
+
         }
     }
 
