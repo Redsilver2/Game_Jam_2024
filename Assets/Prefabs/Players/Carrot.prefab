@@ -86,6 +86,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1830372443260334203, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+      propertyPath: cameraMotion.transform
+      value: 
+      objectReference: {fileID: 7076420729160307124}
     - target: {fileID: 1969969173229871355, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
       propertyPath: m_Name
       value: Carrot
@@ -196,6 +200,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c0bec0c2d6e2484ebcacea36b675198, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &7076420729160307124 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2158664163247298614, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+  m_PrefabInstance: {fileID: 9205747654350801282}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7248506428277729657 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1969969173229871355, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
