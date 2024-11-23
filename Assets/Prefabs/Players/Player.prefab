@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8382937569164624474}
   - component: {fileID: 6830168821529940096}
-  - component: {fileID: 4486982638923412527}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -31,8 +30,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 9210731814458522257}
   - {fileID: 8158147551611111500}
+  - {fileID: 2158664163247298614}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &6830168821529940096
@@ -61,43 +60,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4486982638923412527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1969969173229871355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9aa798cb152ccdb48b58d12b83f0cc4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ownerCameraController: {fileID: 1830372443260334203}
-  characterType: 0
-  walkMovementSpeed: 10
-  runMovementSpeed: 20
-  gravityMovementSpeed: 9.8
-  movementTransitionSpeed: 5
-  defaultGravity: 9.8
-  fallingGravity: 9.8
-  gravityTransitionSpeed: 9.8
-  groundCheckRayLenght: 10
-  footstepAudioHandler:
-    source: {fileID: 0}
-    footsteps:
-    - groundTag: Dirt
-      movementClips: []
-      landedClips: []
-    - groundTag: Grass
-      movementClips: []
-      landedClips: []
-    movementWalkingPitch: 0
-    movementRunningPitch: 0
-    movementPitchTransitionSpeed: 0
-  maxAirTime: 5
-  jumpTime: 0.5
-  jumpForce: 5
 --- !u!1 &3389684214175508668
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,6 +143,38 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5251354717696312360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2158664163247298614}
+  m_Layer: 0
+  m_Name: Camera Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2158664163247298614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5251354717696312360}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 9210731814458522257}
+  m_Father: {fileID: 8382937569164624474}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8149053847146948222
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,12 +202,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8149053847146948222}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8382937569164624474}
+  m_Father: {fileID: 2158664163247298614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &3019200357336171374
 Camera:
@@ -287,5 +281,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 8382937569164624474}
-  rotationSpeed: 90
   maxRotationX: 90
+  cameraMotion:
+    transform: {fileID: 0}
+    maxPositionX: 0
+    minPositionX: 0
+    maxPositionY: 0
+    headbobWalkingSpeed: 0
+    headbobRunningSpeed: 0
