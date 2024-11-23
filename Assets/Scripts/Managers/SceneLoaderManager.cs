@@ -92,4 +92,9 @@ public class SceneLoaderManager : MonoBehaviour
     public static void AddOnLoadSingleLevelEvent(UnityAction action) { OnLoadSingleLevel.AddListener(action); }
     public static void RemoveOnLoadSingleLevelEvent(UnityAction action) { OnLoadSingleLevel.RemoveListener(action); }
 
+    private void OnDisable()
+    {
+        PlayerPrefs.Save();
+    }
+
 }

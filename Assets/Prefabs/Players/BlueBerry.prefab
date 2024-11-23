@@ -82,6 +82,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: de3f931cb0dd6394fa870c12eb7f3a16, type: 3}
   m_PrefabInstance: {fileID: 7754755575514328407}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &8962155277681979859 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: de3f931cb0dd6394fa870c12eb7f3a16, type: 3}
+  m_PrefabInstance: {fileID: 7754755575514328407}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &9205747654350801282
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ownerCameraController: {fileID: 7397066445806713337}
+  meshRenderer: {fileID: 8962155277681979859}
   walkMovementSpeed: 0
   runMovementSpeed: 0
   gravityMovementSpeed: 0
