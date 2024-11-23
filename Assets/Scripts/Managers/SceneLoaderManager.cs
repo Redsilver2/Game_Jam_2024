@@ -35,7 +35,7 @@ public class SceneLoaderManager : MonoBehaviour
             background.canvasRenderer.SetAlpha(0);
         }
 
-        LoadSingleScene(1);
+        //LoadSingleScene(1);
     }
 
     public void LoadSingleScene(int index)
