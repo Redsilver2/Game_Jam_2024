@@ -16,7 +16,6 @@ public class DraggableInteractable : Interactable
 
             if(cameraController != null && controller.CharacterType == CharacterType.Pear)
             {
-
                 break;
             }
         }
