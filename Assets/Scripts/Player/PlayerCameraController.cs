@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(InteractionManager))]
 public class PlayerCameraController : MonoBehaviour
 {
     [SerializeField] private Transform body;

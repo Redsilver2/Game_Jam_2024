@@ -1,23 +1,69 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class DraggableInteractable : Interactable
+[RequireComponent(typeof(Rigidbody))]
+public class DraggableInteractable : Interactable, IPushable
 {
-    private PearCameraController cameraController;
+    [Space]
+    [SerializeField] private float positionZOffset = 3;
+    private Rigidbody rigidbody;
 
     protected override void Awake()
     {
         base.Awake();
+        //PearCameraController cameraController = null;
 
-        foreach(PlayerController controller in PlayerCharacterSwap.Instance.GetPlayerControllers()) 
+        InteractionManager interactionManager = null;
+
+        foreach(PlayerController controller in PlayerCharacterSwap.Instance.GetPlayerControllers())
         {
-            cameraController = (PearCameraController)controller.CameraController;
-
-            if(cameraController != null && controller.CharacterType == CharacterType.Pear)
+            PlayerCameraController cameraController = controller.CameraController;
+            interactionManager                      = cameraController.GetComponent<InteractionManager>();
+            
+            if(interactionManager != null)
             {
                 break;
             }
+        }
+
+
+        rigidbody = GetComponent<Rigidbody>();
+
+
+        AddOnInteract(interactionState =>
+        {
+            if (interactionManager != null)
+            {
+                if (interactionState)
+                {
+                    rigidbody.useGravity = false;
+                    rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                   
+                    transform.SetParent(interactionManager.transform);
+                    transform.localPosition = Vector3.forward * positionZOffset;
+                }
+                else
+                {
+                    rigidbody.useGravity = true;
+                    rigidbody.constraints = RigidbodyConstraints.None;
+
+                    rigidbody.AddForce(transform.forward * interactionManager.PushForce);
+                    transform.SetParent(null);
+                }
+            }
+        });
+    }
+
+    public void Push(Vector3 direction, float force)
+    {
+        rigidbody.AddForce(direction * force);
+    }
+
+    private IEnumerator AvoidClippingCoroutine()
+    {
+        while (true)
+        {
+            yield return null;
         }
     }
 }
