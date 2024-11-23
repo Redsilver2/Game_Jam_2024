@@ -2,9 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CharacterType 
+public interface IPushable
 {
-    Carrot, 
-    Pear,
-    Blueberry
+    void Push(Vector3 direction, float force);
 }

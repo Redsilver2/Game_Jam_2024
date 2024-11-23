@@ -35,15 +35,13 @@ public class PlayerCharacterSwap : MonoBehaviour
     {
         for (int i = 0; i < characterDatas.Count; i++)
         {
-            PlayerCharacterData currentData = characterDatas[i];
-            PlayerController controller = currentData.Controller;
-            controller.enabled = false;
+            PlayerController controller = characterDatas[i].Controller;
 
             if (controller == starterCharacterController)
             {
                 currentIndex = i;
                 controller.enabled = true;
-                continue;
+                break;
             }
         }
 
@@ -135,6 +133,7 @@ public class PlayerCharacterSwap : MonoBehaviour
     {
         if(camera != null && controller != null)
         {
+            controller.enabled = false;
             characterDatas.Add(new PlayerCharacterData(camera, controller));
         }
     }
