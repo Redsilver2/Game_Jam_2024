@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerController : MonoBehaviour
+public abstract class PlayerController : MonoBehaviour
 {
 
     [Header("Base Settings")]
-    [SerializeField] private PlayerCameraController ownerCameraController;
-    [SerializeField] private CharacterType characterType;
+    [SerializeField] protected PlayerCameraController ownerCameraController;
 
     [Space]
     [Header("Movement Settings")]
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
 
 
     private Vector2 inputMotion;
-    private CharacterController character;
+    protected CharacterController character;
 
     private UnityEvent<bool> onStateChanged;
     private static UnityEvent<PlayerController, Vector2> onMovementMotionChanged = new UnityEvent<PlayerController, Vector2>();
@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour
     public bool IsRunning => isRunning;
     public bool IsGrounded => isGrounded;
     public PlayerCameraController CameraController => ownerCameraController;
-    public CharacterType CharacterType => characterType;
 
     private void OnValidate()
     {
@@ -74,7 +73,7 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         character = GetComponent<CharacterController>();
         onStateChanged = new UnityEvent<bool>();
@@ -85,10 +84,14 @@ public class PlayerController : MonoBehaviour
         if (ownerCameraController != null)
         {
             PlayerCharacterSwap.AddPlayerCharacterData(ownerCameraController.GetComponent<Camera>(), this);
-            AddOnStateChangedEvent(isEnabled =>
+
+            if (ownerCameraController != null)
             {
-                ownerCameraController.enabled = isEnabled;
-            });
+                AddOnStateChangedEvent(isEnabled =>
+                {
+                    ownerCameraController.enabled = isEnabled;
+                });
+            }
         }
     }
 
@@ -202,6 +205,7 @@ public class PlayerController : MonoBehaviour
     {
         onMovementMotionChanged.RemoveListener(action);
     }
+
 
     private void OnDisable()
     {

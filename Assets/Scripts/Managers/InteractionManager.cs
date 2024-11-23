@@ -5,33 +5,31 @@ using UnityEngine.UI;
 
 public class InteractionManager : MonoBehaviour
 {
-    [SerializeField] private Image interactionCrosshair;
-    [SerializeField] private TextMeshProUGUI interactionNameDisplayer;
+    private Image interactionCrosshair;
+    private TextMeshProUGUI interactionNameDisplayer;
+    private float interactionRange = 10f;
 
-    [Space]
-    [SerializeField] private float interactionRange = 10f;
-
+    public float PushForce { get; private set; }
     private static Dictionary<Collider, Interactable> interactableInstances = new Dictionary<Collider, Interactable>();
-    public static InteractionManager Instance { get; private set; }
 
-    private void Awake()
-    {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
     public void Update()
     {
         CastInteractionRay();
     }
 
+
+    public void Init(float interactionRange, float pushForce, Image crosshair, TextMeshProUGUI nameDisplayer)
+    {
+        this.interactionRange         = interactionRange;
+        this.PushForce                = pushForce;
+        this.interactionCrosshair     = crosshair;
+        this.interactionNameDisplayer = nameDisplayer;
+    }
+
     private void CastInteractionRay()
     {
+        Debug.DrawRay(transform.position, transform.forward, Color.red);
+
         if(Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, interactionRange, LayerMask.GetMask("Interactable")) && hitInfo.collider != null)
         {
             Sprite interactableIcon = null;
@@ -42,6 +40,8 @@ public class InteractionManager : MonoBehaviour
             {
                 interactableIcon = interactable.GetIcon();
                 interactableName = interactable.GetName();
+
+                Debug.Log(interactableName);
 
                 if (Input.GetKeyDown(KeyCode.E))
                 {
@@ -87,5 +87,17 @@ public class InteractionManager : MonoBehaviour
         {
             interactableInstances.Remove(collider);
         }
+    }
+
+    private void OnDisable()
+    {
+        if (interactionCrosshair) interactionCrosshair.enabled = false;
+        if (interactionNameDisplayer) interactionNameDisplayer.enabled = false;
+    }
+
+    private void OnEnable()
+    {
+        if (interactionCrosshair) interactionCrosshair.enabled = true;
+        if (interactionNameDisplayer) interactionNameDisplayer.enabled = true;
     }
 }
