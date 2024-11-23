@@ -1,21 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class Quests
+public class Quests
 {
-    protected string name;
-    protected string description;
-    [SerializeField] protected GameObject neededVegetable;
+    [SerializeField] private string questName;
+    [SerializeField] private UnityEvent onQuestStart;
+    [SerializeField] private UnityEvent onQuestEnd;
 
-    public Quests(string currentName,string currentDescription)
-    {
-        name = currentName;
-        description = currentDescription;
-    }
-
-    public abstract void QuestRequirements();
-    public abstract void QuestReward();
-
-    public abstract void QuestMalus();
 }
