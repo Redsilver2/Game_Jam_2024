@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2061d74d4e4fbad439e200e5ddaf98c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ownerCameraController: {fileID: 0}
+  ownerCameraController: {fileID: 7397066445806713337}
   walkMovementSpeed: 0
   runMovementSpeed: 0
   gravityMovementSpeed: 0
@@ -239,3 +239,14 @@ MonoBehaviour:
   pushForce: 10
   interactionCrosshair: {fileID: 0}
   interactionNameDisplayer: {fileID: 0}
+--- !u!114 &7397066445806713337 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1830372443260334203, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+  m_PrefabInstance: {fileID: 9205747654350801282}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069081525910138876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a3b2c4abe78844696ce649335b523f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

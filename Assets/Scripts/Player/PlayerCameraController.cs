@@ -6,28 +6,36 @@ public class PlayerCameraController : MonoBehaviour
     [SerializeField] private Transform body;
 
     [Space]
-    [SerializeField] private float rotationSpeed = 5f;
+    [SerializeField] private float maxRotationX = 90f;
 
     [Space]
-    [SerializeField] private float maxRotationX = 90f;
+    [SerializeField] private PlayerCameraMotion cameraMotion;
 
     private float rotationX;
     private float rotationY;
 
+    private static float sensitivityX = 500f;
+    private static float sensitivityY = 500f;
+
+    private void Start()
+    {
+        cameraMotion.Init(body.GetComponent<PlayerController>());
+    }
+
     private void Update()
     {
-        float axisX = Input.GetAxis("Mouse X");
-        float axisY = Input.GetAxis("Mouse Y");
+        float axisX = Input.GetAxis("Mouse X") * sensitivityX;
+        float axisY = Input.GetAxis("Mouse Y") * sensitivityY;
 
         if (axisY != 0)
         {
-            rotationX += -axisY * rotationSpeed * Time.deltaTime;
-            rotationX = Mathf.Clamp(rotationX, -maxRotationX, maxRotationX); 
+            rotationX += -axisY * Time.deltaTime;
+            rotationX = Mathf.Clamp(rotationX, -maxRotationX, maxRotationX);
         }
 
         if (axisX != 0 && body != null)
         {
-            rotationY = body.eulerAngles.y + (axisX * rotationSpeed * Time.deltaTime);
+            rotationY = body.eulerAngles.y + (axisX * Time.deltaTime);
         }
     }
 
@@ -35,9 +43,19 @@ public class PlayerCameraController : MonoBehaviour
     {
         transform.localEulerAngles = Vector3.right * rotationX;
 
-        if(body != null)
+        if (body != null)
         {
             body.eulerAngles = Vector3.up * rotationY;
         }
     }
+
+    public static void OnSensitvityXSliderValueChanged(float value)
+    {
+        sensitivityX = value;
+    }
+    public static void OnSensitvityYSliderValueChanged(float value)
+    {
+        sensitivityY = value;
+    }
+
 }
