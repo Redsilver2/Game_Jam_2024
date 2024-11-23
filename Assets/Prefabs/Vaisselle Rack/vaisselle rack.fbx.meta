@@ -1,5 +1,15 @@
+<<<<<<< HEAD
+  importAnimation: 1
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Vaisselle Rack/vaisselle rack.fbx.meta
 guid: 9621ec44ac5e5e04ba57b23b4406c6eb
+========
+guid: 19fc04e720373784289617794a9c70e7
+>>>>>>>> origin/main:Assets/Prefabs/Model3D/Juice/Juice.max.meta
+=======
+fileFormatVersion: 2
+guid: a56b1917b90a9c243aee4815cff01851
+>>>>>>> origin/main
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []

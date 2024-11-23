@@ -24,7 +24,7 @@ public class FootstepAudioHandler
 
     public void PlayMovementSound(GameObject ground, bool isRunning)
     {
-        if (ground != null)
+        if (ground != null && source != null)
         {
             float desiredMovementPitch = movementWalkingPitch;
 
@@ -43,7 +43,7 @@ public class FootstepAudioHandler
 
     public void PlayLandingSound(GameObject ground)
     {
-        if (ground != null)
+        if (ground != null && source != null)
         {
             currentMovementPitch = movementWalkingPitch;
             PlaySound(GetLandingClip(ground.tag));
