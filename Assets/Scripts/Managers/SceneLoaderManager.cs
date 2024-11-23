@@ -33,9 +33,8 @@ public class SceneLoaderManager : MonoBehaviour
         if (background)
         {
             background.canvasRenderer.SetAlpha(0);
+            background.enabled = false;
         }
-
-        //LoadSingleScene(1);
     }
 
     public void LoadSingleScene(int index)
@@ -64,6 +63,8 @@ public class SceneLoaderManager : MonoBehaviour
     private IEnumerator LoadSingleSceneCoroutine(int index)
     {
         IsLoadingSingleScene = true;
+        background.enabled   = true;
+
         OnLoadSingleLevel.Invoke();
 
         yield return UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, true, fadeBackgroundDuration);
@@ -76,12 +77,14 @@ public class SceneLoaderManager : MonoBehaviour
         operation.allowSceneActivation = true;
         yield return UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, false, fadeBackgroundDuration);
 
+        background.enabled   = false;
         IsLoadingSingleScene = false;
     }
 
     private IEnumerator QuitApplicationCoroutine()
     {
         IsLoadingSingleScene = true;
+        background.enabled   = true;
         yield return UIManager.LerpCanvasRendererAlpha(background.canvasRenderer, true, fadeBackgroundDuration);
         Application.Quit();
     }

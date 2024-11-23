@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -47,7 +43,7 @@ public abstract class PlayerController : MonoBehaviour
     private float airTime = 0f;
 
 
-    private string groundTag = string.Empty;
+    private GameObject ground;
     private float currentMovementSpeed = 0;
     private float currentGravitySpeed = 0;
 
@@ -61,6 +57,8 @@ public abstract class PlayerController : MonoBehaviour
 
     public bool IsRunning => isRunning;
     public bool IsGrounded => isGrounded;
+
+    public MeshRenderer MeshRenderer => meshRenderer;
     public PlayerCameraController CameraController => ownerCameraController;
 
     private void OnValidate()
@@ -95,7 +93,7 @@ public abstract class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        isGrounded = GetGroundedState(out groundTag);
+        isGrounded = GetGroundedState(out ground);
         inputMotion = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         isRunning = isGrounded && Input.GetKey(KeyCode.LeftShift);
     }
@@ -116,11 +114,11 @@ public abstract class PlayerController : MonoBehaviour
             {
                 if (!canPlayLandingSound)
                 {
-                   // footstepAudioHandler.PlayMovementSound(groundTag, isRunning);
+                    footstepAudioHandler.PlayMovementSound(ground, isRunning);
                 }
                 else
                 {
-                   // footstepAudioHandler.PlayLandingSound(groundTag);
+                    footstepAudioHandler.PlayLandingSound(ground);
                     canPlayLandingSound = false;
                     airTime = 0f;
                 }
@@ -150,15 +148,15 @@ public abstract class PlayerController : MonoBehaviour
 
         onMovementMotionChanged.Invoke(this, inputMotion);
     }
-    private bool GetGroundedState(out string groundTag)
+    private bool GetGroundedState(out GameObject ground)
     {
         if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitInfo, groundCheckRayLenght, LayerMask.GetMask("Ground")) && hitInfo.collider != null)
         {
-            groundTag = hitInfo.collider.tag;
+            ground = hitInfo.collider.gameObject;
             return true;
         }
 
-        groundTag = string.Empty;
+        ground = null;
         return false;
     }
 

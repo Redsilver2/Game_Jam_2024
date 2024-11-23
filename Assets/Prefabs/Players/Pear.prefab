@@ -1,36 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4832346279919330047
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2358617612516189093}
-  m_Layer: 0
-  m_Name: Camera Holder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2358617612516189093
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4832346279919330047}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 835224192623479768}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &6725553789764129057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,6 +86,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1830372443260334203, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+      propertyPath: cameraMotion.transform
+      value: 
+      objectReference: {fileID: 7076420729160307124}
     - target: {fileID: 1969969173229871355, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
       propertyPath: m_Name
       value: Pear
@@ -189,9 +162,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8382937569164624474, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
       insertIndex: 0
       addedObject: {fileID: 6548039196086449866}
-    - targetCorrespondingSourceObject: {fileID: 8382937569164624474, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2358617612516189093}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1969969173229871355, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
       insertIndex: -1
@@ -200,6 +170,11 @@ PrefabInstance:
 --- !u!4 &835224192623479768 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8382937569164624474, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
+  m_PrefabInstance: {fileID: 9205747654350801282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7076420729160307124 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2158664163247298614, guid: 14e70d66e818dd64e89d9442a82c60a3, type: 3}
   m_PrefabInstance: {fileID: 9205747654350801282}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &7248506428277729657 stripped

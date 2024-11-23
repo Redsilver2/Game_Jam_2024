@@ -22,26 +22,32 @@ public class FootstepAudioHandler
         Footstep.SetArray(ref footsteps);
     }
 
-    public void PlayMovementSound(string groundTag, bool isRunning)
+    public void PlayMovementSound(GameObject ground, bool isRunning)
     {
-        float desiredMovementPitch = movementWalkingPitch;
-
-        if (!source.isPlaying)
+        if (ground != null)
         {
-            if (isRunning)
-            {
-                desiredMovementPitch = movementRunningPitch;
-            }
+            float desiredMovementPitch = movementWalkingPitch;
 
-            currentMovementPitch = Mathf.Lerp(currentMovementPitch, desiredMovementPitch, movementPitchTransitionSpeed * Time.deltaTime);
-            PlaySound(GetMovementClip(groundTag));
+            if (!source.isPlaying)
+            {
+                if (isRunning)
+                {
+                    desiredMovementPitch = movementRunningPitch;
+                }
+
+                currentMovementPitch = Mathf.Lerp(currentMovementPitch, desiredMovementPitch, movementPitchTransitionSpeed * Time.deltaTime);
+                PlaySound(GetMovementClip(ground.tag));
+            }
         }
     }
 
-    public void PlayLandingSound(string groundTag)
+    public void PlayLandingSound(GameObject ground)
     {
-        currentMovementPitch = movementWalkingPitch;
-        PlaySound(GetLandingClip(groundTag));
+        if (ground != null)
+        {
+            currentMovementPitch = movementWalkingPitch;
+            PlaySound(GetLandingClip(ground.tag));
+        }
     }
 
     private void PlaySound(AudioClip clip)
