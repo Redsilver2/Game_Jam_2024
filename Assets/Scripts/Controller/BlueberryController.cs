@@ -34,6 +34,7 @@ sealed class BlueberryController : PlayerController {
         }
 
         canFall = true;
+        canJump = true;
     }
 
 }

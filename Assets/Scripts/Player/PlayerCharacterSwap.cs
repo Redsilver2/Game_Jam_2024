@@ -36,14 +36,21 @@ public class PlayerCharacterSwap : MonoBehaviour
         for (int i = 0; i < characterDatas.Count; i++)
         {
             PlayerController controller = characterDatas[i].Controller;
+            MeshRenderer meshRenderer  = controller.MeshRenderer;
 
             if (controller == starterCharacterController)
             {
+
                 currentIndex = i;
-                controller.enabled = true;
-                controller.MeshRenderer.enabled = true;
-                break;
+                characterDatas[i].SetIsCharacterUnlocked(true);
+
+                controller.enabled   = true;
+                meshRenderer.enabled = false;
+                continue;
             }
+
+            controller.enabled = false;
+            meshRenderer.enabled = true;
         }
 
         if (swapBackground != null)
@@ -53,6 +60,22 @@ public class PlayerCharacterSwap : MonoBehaviour
         }
 
         SceneLoaderManager.AddOnLoadSingleLevelEvent(OnLoadSingleLevelEvent);
+    }
+
+    public void UnlockCharacter(PlayerController controller)
+    {
+        for (int i = 0; i < characterDatas.Count; i++)
+        {
+            PlayerController _controller = characterDatas[i].Controller;
+
+            if (controller == _controller)
+            {
+        
+                characterDatas[i].SetIsCharacterUnlocked(true);
+                Debug.LogWarning(controller.name + " Unlocked " + characterDatas[i].IsCharacterUnlocked);
+                break;
+            }
+        }
     }
 
 
@@ -81,34 +104,38 @@ public class PlayerCharacterSwap : MonoBehaviour
 
     private IEnumerator SwapCharacter(int index)
     {
-        if (index < 0)
-        {
-            index = 0;
-        }
-        else if (index >= characterDatas.Count)
-        {
-            index = characterDatas.Count - 1;
-        }
-
+        Debug.LogWarning("1");
         if (currentIndex != index && characterDatas.Count > 0 && swapBackground != null)
         {
-            PlayerCharacterData currentData = characterDatas[currentIndex];
-            swapBackground.enabled = true;
+            Debug.LogWarning("2");
+            if (index >= 0 && index < characterDatas.Count)
+            {
+                Debug.LogWarning("3");
+                if (characterDatas[index].IsCharacterUnlocked)
+                {
+                    Debug.LogWarning("4");
+                    PlayerCharacterData currentData = characterDatas[currentIndex];
+                    swapBackground.enabled = true;
 
-            isSwaping = true;
-            currentIndex = index;
+                    isSwaping = true;
+                    currentIndex = index;
 
-            currentData.Controller.enabled = false;
-            yield return UIManager.LerpCanvasRendererAlpha(swapBackground.canvasRenderer, true, swapBackgroundFadeDuration);
+                    currentData.Controller.enabled = false;
+                    yield return UIManager.LerpCanvasRendererAlpha(swapBackground.canvasRenderer, true, swapBackgroundFadeDuration);
 
-            currentData.Camera.enabled = false;
-            currentData = characterDatas[index];
-            currentData.Camera.enabled = true;
+                    currentData.Controller.MeshRenderer.enabled = true;
+                    currentData.Camera.enabled = false;
+                    currentData = characterDatas[index];
+                    currentData.Camera.enabled = true;
+                    currentData.Controller.MeshRenderer.enabled = false;
 
-            yield return UIManager.LerpCanvasRendererAlpha(swapBackground.canvasRenderer, false, swapBackgroundFadeDuration);
-            currentData.Controller.enabled = true;
-            isSwaping = false;
-            swapBackground.enabled = false;
+                    yield return UIManager.LerpCanvasRendererAlpha(swapBackground.canvasRenderer, false, swapBackgroundFadeDuration);
+                    currentData.Controller.enabled = true;
+
+                    isSwaping = false;
+                    swapBackground.enabled = false;
+                }
+            }
         }
     }
 
@@ -133,13 +160,11 @@ public class PlayerCharacterSwap : MonoBehaviour
         if (controller != null) controller.enabled = false;
     }
 
-    public static void AddPlayerCharacterData(Camera camera, PlayerController controller)
+    public static void AddPlayerCharacterData(Camera camera, PlayerController controller, bool isUnlocked)
     {
         if(camera != null && controller != null)
         {
-            controller.enabled = false;
-            controller.MeshRenderer.enabled = false;
-            characterDatas.Add(new PlayerCharacterData(camera, controller));
+            characterDatas.Add(new PlayerCharacterData(camera, controller, isUnlocked));
         }
     }
 

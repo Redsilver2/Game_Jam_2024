@@ -8,6 +8,7 @@ public abstract class PlayerController : MonoBehaviour
     [Header("Base Settings")]
     [SerializeField] protected PlayerCameraController ownerCameraController;
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private bool isUnlocked = false;
 
     [Space]
     [Header("Movement Settings")]
@@ -27,7 +28,8 @@ public abstract class PlayerController : MonoBehaviour
     [SerializeField] private float gravityTransitionSpeed;
 
     [Space]
-    [SerializeField] private float groundCheckRayLenght = 10f;
+    [SerializeField] private float groundCheckRayLenght = 1.1f;
+    [SerializeField] private float rayPositionYOffset = 0f;
 
     [Space]
     [SerializeField] private FootstepAudioHandler footstepAudioHandler;
@@ -76,13 +78,12 @@ public abstract class PlayerController : MonoBehaviour
 
         if (ownerCameraController != null)
         {
-            PlayerCharacterSwap.AddPlayerCharacterData(ownerCameraController.GetComponent<Camera>(), this);
+            PlayerCharacterSwap.AddPlayerCharacterData(ownerCameraController.GetComponent<Camera>(), this, isUnlocked);
 
             if (ownerCameraController != null)
             {
                 AddOnStateChangedEvent(isEnabled =>
                 {
-                    meshRenderer.enabled = !isEnabled;
                     ownerCameraController.enabled = isEnabled;
                 });
             }
@@ -148,7 +149,8 @@ public abstract class PlayerController : MonoBehaviour
     }
     private bool GetGroundedState(out GameObject ground)
     {
-        if (Physics.Raycast(transform.position, -transform.up, out RaycastHit hitInfo, groundCheckRayLenght, LayerMask.GetMask("Ground")) && hitInfo.collider != null)
+        Vector3 rayPosition = transform.position + Vector3.up * rayPositionYOffset;
+        if (Physics.Raycast(rayPosition, -transform.up, out RaycastHit hitInfo, groundCheckRayLenght, LayerMask.GetMask("Ground")) && hitInfo.collider != null)
         {
             ground = hitInfo.collider.gameObject;
             return true;
